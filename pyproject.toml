@@ -1,0 +1,18 @@
+[project]
+name = "ddojo"
+version = "0.1.0"
+description = "A CLI tool for generating and testing daily programming challenges."
+authors = [
+    {name = "Zor0ar", email = "your@email.com"},
+]
+dependencies = [
+    "google-generativeai",
+    "python-dotenv",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+license = {text = "MIT"}
+
+[project.scripts]
+
+ddojo = "ddojo.main:main"

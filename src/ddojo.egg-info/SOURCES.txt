@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+src/ddojo/__init__.py
+src/ddojo/ai_logic.py
+src/ddojo/files.py
+src/ddojo/main.py
+src/ddojo/testing.py
+src/ddojo.egg-info/PKG-INFO
+src/ddojo.egg-info/SOURCES.txt
+src/ddojo.egg-info/dependency_links.txt
+src/ddojo.egg-info/entry_points.txt
+src/ddojo.egg-info/requires.txt
+src/ddojo.egg-info/top_level.txt
