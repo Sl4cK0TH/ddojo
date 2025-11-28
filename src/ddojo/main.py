@@ -106,13 +106,17 @@ Note: The '--submit' command is for non-interactive testing. During a '--new' or
             topic_info = f" on the topic of '{args.topic}'" if args.topic else ""
             print(f"\nGenerating a new {difficulty} challenge{topic_info}...")
             
+            from .display import clean_markdown_for_display
+            
             challenge_text = generate_challenge(difficulty, args.topic)
             filepath = save_challenge(challenge_text)
             set_active_challenge(filepath)
             
-            print("\n" + "="*80)
-            print(challenge_text)
+            cleaned_content = clean_markdown_for_display(challenge_text)
+            print("\\n" + "="*80)
+            print(cleaned_content)
             print("="*80)
+            
             print(f"Challenge saved to: {filepath}")
             print(f"This is now the active challenge.")
             from .testing import enter_submission_loop

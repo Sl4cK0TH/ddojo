@@ -15,7 +15,7 @@ def generate_challenge(difficulty, topic=None):
     topic_instruction = f"The challenge topic must be focused on: '{topic}'." if topic else ""
     
     prompt = f"""
-    Generate a C++ programming challenge. {topic_instruction}
+    Generate a programming challenge. {topic_instruction}
     The output must be in Markdown format and strictly follow this structure:
 
     # [Challenge Title]
@@ -74,16 +74,17 @@ def analyze_code_quality(solution_path, challenge_text):
 
     **Your Judging Criteria:**
 
-    1.  **Hardcoding & Readability (`verdict`):**
+    1.  **Language Agnostic:** The user can submit a solution in any language (C++, Python, Java, etc.). **Do not penalize the user or fail the `verdict` based on the language they chose.** Your evaluation of quality and efficiency should be independent of the language.
+
+    2.  **Hardcoding & Readability (`verdict`):**
         *   Your primary task is to check for hardcoding.
         *   The `verdict` should be "FAIL" **only if** you detect hardcoding or if the code is exceptionally unreadable/obfuscated.
-        *   The `verdict` should be "PASS" if the code implements a general algorithm, even if minor style improvements are possible.
-        *   **Do NOT fail the `verdict` for debatable 'best practices' (e.g., using `float` where `double` might be safer in enterprise code) if `float` is sufficient for the contest problem.**
+        *   The `verdict` should be "PASS" if the code implements a general algorithm.
 
-    2.  **Efficiency (`efficiency_verdict`):**
+    3.  **Efficiency (`efficiency_verdict`):**
         *   Analyze the algorithmic complexity (Big O). The `efficiency_verdict` should be "FAIL" if the algorithm is clearly sub-optimal (e.g., brute-force O(n^2) when a O(n log n) solution is expected).
 
-    3.  **Feedback (`feedback`):**
+    4.  **Feedback (`feedback`):**
         *   Your feedback must be concise (1-2 sentences).
         *   Prioritize the most critical issue. If efficiency is bad, comment on that. If quality failed due to hardcoding, state that.
         *   If the verdicts for quality and efficiency are both "PASS", you may provide a brief, secondary suggestion for a minor code style or best practice improvement as a helpful tip.

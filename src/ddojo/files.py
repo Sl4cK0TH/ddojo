@@ -38,10 +38,11 @@ def get_active_challenge():
 
 def handle_resume_logic(show_all):
     """Lists challenges and allows the user to resume one."""
-    print("\n--- Resuming a Challenge ---")
+    print("\\n--- Resuming a Challenge ---")
     
-    # Correctly reference the testing module for the submission loop
+    # Correctly reference the necessary modules
     from .testing import enter_submission_loop
+    from .display import clean_markdown_for_display
 
     challenge_files = glob.glob(os.path.join(CHALLENGES_DIR, "*.md"))
     challenge_files.sort(key=os.path.getmtime, reverse=True)
@@ -75,8 +76,10 @@ def handle_resume_logic(show_all):
                 set_active_challenge(selected_path)
                 
                 with open(selected_path, 'r') as f:
+                    raw_content = f.read()
+                    cleaned_content = clean_markdown_for_display(raw_content)
                     print("\\n" + "="*80)
-                    print(f.read())
+                    print(cleaned_content)
                     print("="*80)
 
                 enter_submission_loop(selected_path)
