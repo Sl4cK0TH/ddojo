@@ -1,45 +1,59 @@
 #!/bin/bash
 
 # This script automates the build and global installation of the d'Dojo CLI tool.
-# It will automatically install 'pdm' if it is not found.
 
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
 echo "--- d'Dojo Installer ---"
 
-# 1. Check for pdm and install if missing
-if ! command -v pdm &> /dev/null; then
-    echo "› 'pdm' not found. Installing it now..."
-    curl -sSL https://pdm-project.org/install-pdm.py | python3 -
-    
-    # The PDM installer typically places the executable in ~/.local/bin
-    # We need to add this to the current script's PATH to find the command.
-    export PATH="$HOME/.local/bin:$PATH"
-    echo "› PDM installed."
-else
-    echo "› 'pdm' is already installed."
-fi
+# --- 1. Prerequisite Checks ---
+echo "› Checking for required tools..."
+MISSING_TOOLS=false
 
-# 2. Check for pipx
-echo "› Checking for required tool 'pipx'..."
-if ! command -v pipx &> /dev/null; then
-    echo "Error: 'pipx' is not installed. This script requires pipx to make the 'ddojo' command globally available."
-    echo "You can usually install it with: python3 -m pip install --user pipx"
-    echo "Then ensure it's on your PATH with: python3 -m pipx ensurepath"
+check_command() {
+    CMD=$1
+    if ! command -v "$CMD" &> /dev/null; then
+        echo "  - Command not found: '$CMD'"
+        MISSING_TOOLS=true
+    fi
+}
+
+check_command gcc
+check_command g++
+check_command java
+check_command javac
+check_command node
+check_command pdm
+check_command pipx
+
+if [ "$MISSING_TOOLS" = true ]; then
+    echo -e "\nError: Missing required system dependencies."
+    echo "Please install the missing tools using your system's package manager."
+    echo "Example commands:"
+    echo "  - For C/C++ compilers on Debian/Ubuntu: sudo apt install build-essential"
+    echo "  - For C/C++ compilers on Fedora/CentOS: sudo dnf groupinstall 'Development Tools'"
+    echo "  - For Java (JDK) on Debian/Ubuntu:       sudo apt install default-jdk"
+    echo "  - For Java (JDK) on Fedora/CentOS:       sudo dnf install java-latest-openjdk-devel"
+    echo "  - For Node.js (JavaScript):            Follow instructions at https://nodejs.org/"
+    echo "  - For PDM:                             curl -sSL https://pdm-project.org/install-pdm.py | python3 -"
+    echo "  - For pipx:                            python3 -m pip install --user pipx && python3 -m pipx ensurepath"
+    echo -e "\nAfter installing the dependencies, please run this script again."
     exit 1
 fi
 echo "› All required tools found."
 
-# 3. Sync project dependencies using pdm
+# --- 2. Python Project Installation ---
+
+# Sync project dependencies using pdm
 echo "› Installing project dependencies..."
 pdm install
 
-# 4. Build the project wheel using pdm
+# Build the project wheel using pdm
 echo "› Building the ddojo package..."
 pdm build
 
-# 5. Find the built wheel file in the dist/ directory
+# Find the built wheel file in the dist/ directory
 WHEEL_FILE=$(find dist -name "*.whl" | head -n 1)
 if [ -z "$WHEEL_FILE" ]; then
     echo "Error: Build failed. Could not find a wheel file in the dist/ directory."
@@ -47,11 +61,11 @@ if [ -z "$WHEEL_FILE" ]; then
 fi
 echo "› Found package: $WHEEL_FILE"
 
-# 6. Install globally using pipx. --force will handle re-installation if it already exists.
+# Install globally using pipx. --force will handle re-installation if it already exists.
 echo "› Installing 'ddojo' command globally with pipx..."
 pipx install --force "$WHEEL_FILE"
 
-# 7. Success message
+# --- 3. Success Message ---
 echo ""
 echo "✅ Installation complete!"
 echo "To use the 'ddojo' command, please open a NEW terminal, or reload your shell profile (e.g., 'source ~/.bashrc')."

@@ -57,16 +57,47 @@ The application is now configured to use your API key. The `.env` file is includ
 
 ## Requirements
 
-Before installation, please ensure you have the following tools installed and available on your system's PATH:
+Before installation, please ensure you have the following tools installed. `d'Dojo`'s automated testing depends on these compilers and runtimes being available in your system's PATH.
 
-- **Python 3.8+**
-- **pipx** (`python3 -m pip install --user pipx`)
-- **Git**
-- **Language Runtimes/Compilers:**
-    - `gcc` (for C)
-    - `g++` (for C++)
-    - `node` (for JavaScript)
-    - A Java JDK (for `javac` and `java`)
+- **Python 3.8+** and **pipx**
+  - `pipx` is used for clean installation of Python applications.
+  - _Installation:_
+    ```bash
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
+    ```
+
+- **C/C++ Compiler** (`gcc` and `g++`)
+  - The `build-essential` package on Debian-based systems or `'Development Tools'` group on Fedora-based systems provides everything you need.
+  - _Installation (Debian/Ubuntu):_
+    ```bash
+    sudo apt update && sudo apt install build-essential
+    ```
+  - _Installation (Fedora/CentOS):_
+    ```bash
+    sudo dnf groupinstall 'Development Tools'
+    ```
+
+- **Java Development Kit (JDK)** (`javac` and `java`)
+  - Required for compiling and running Java solutions.
+  - _Installation (Debian/Ubuntu):_
+    ```bash
+    sudo apt install default-jdk
+    ```
+  - _Installation (Fedora/CentOS):_
+    ```bash
+    sudo dnf install java-latest-openjdk-devel
+    ```
+
+- **Node.js** (`node`)
+  - Required for running JavaScript solutions.
+  - _Installation:_ It is recommended to install from the official Node.js website or using a version manager like `nvm`.
+    ```bash
+    # Example using nvm
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    nvm install --lts
+    ```
+
 
 ## Installation
 

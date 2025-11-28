@@ -14,7 +14,7 @@ from .files import save_challenge, set_active_challenge, get_active_challenge, h
 BANNER = """
          88    d8'  88888888ba,                 88               
          88   d8'   88      `"8b                ""               
-         88   ""     88        `8b                                
+         88   ""    88        `8b                                
  ,adPPYb,88         88         88   ,adPPYba,   88   ,adPPYba,   
 a8"    `Y88         88         88  a8"     "8a  88  a8"     "8a  
 8b       88         88         8P  8b       d8  88  8b       d8  
@@ -113,7 +113,7 @@ Note: The '--submit' command is for non-interactive testing. During a '--new' or
             set_active_challenge(filepath)
             
             cleaned_content = clean_markdown_for_display(challenge_text)
-            print("\\n" + "="*80)
+            print("\n" + "="*80)
             print(cleaned_content)
             print("="*80)
             

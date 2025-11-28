@@ -38,7 +38,7 @@ def get_active_challenge():
 
 def handle_resume_logic(show_all):
     """Lists challenges and allows the user to resume one."""
-    print("\\n--- Resuming a Challenge ---")
+    print("\n--- Resuming a Challenge ---")
     
     # Correctly reference the necessary modules
     from .testing import enter_submission_loop
@@ -72,13 +72,13 @@ def handle_resume_logic(show_all):
             if 0 <= choice_idx < len(files_to_show):
                 selected_path = files_to_show[choice_idx]
                 
-                print(f"\\nResuming challenge: {os.path.basename(selected_path)}")
+                print(f"\nResuming challenge: {os.path.basename(selected_path)}")
                 set_active_challenge(selected_path)
                 
                 with open(selected_path, 'r') as f:
                     raw_content = f.read()
                     cleaned_content = clean_markdown_for_display(raw_content)
-                    print("\\n" + "="*80)
+                    print("\n" + "="*80)
                     print(cleaned_content)
                     print("="*80)
 
@@ -89,5 +89,5 @@ def handle_resume_logic(show_all):
         except ValueError:
             print("Invalid input. Please enter a number.")
         except KeyboardInterrupt:
-            print("\\nExiting.")
+            print("\nExiting.")
             break

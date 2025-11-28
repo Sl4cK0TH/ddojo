@@ -2,6 +2,7 @@ README.md
 pyproject.toml
 src/ddojo/__init__.py
 src/ddojo/ai_logic.py
+src/ddojo/display.py
 src/ddojo/files.py
 src/ddojo/main.py
 src/ddojo/testing.py
