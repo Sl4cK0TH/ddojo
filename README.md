@@ -19,7 +19,7 @@ a8"    `Y88         88         88  a8"     "8a  88  a8"     "8a
 <p align="center">
   A CLI tool for generating and testing daily programming challenges.
   <br />
-  <b>Author:</b> Zor0ar
+  <b>Author:</b> Zor0ark
 </p>
 
 ---
@@ -38,6 +38,22 @@ a8"    `Y88         88         88  a8"     "8a  88  a8"     "8a
 - **Command History:** The submission prompt features command history and full line-editing, just like your terminal.
 - **Session Management:** Use `--resume` to pick up where you left off on a previous challenge.
 - **Customizable:** Specify a difficulty (`Easy`, `Medium`, `Hard`, `Insane`) and a topic (e.g., "Graphs", "Dynamic Programming").
+
+## Configuration
+
+Before you can run the application, you need to provide your Google Gemini API key.
+
+1.  In the root of the `ddojo` directory, copy the example environment file:
+    ```bash
+    cp .env.example .env
+    ```
+
+2.  Open the newly created `.env` file and replace `"Your-API-Key-Here"` with your actual Gemini API key. The file should look like this:
+    ```
+    GEMINI_API_KEY="AIz...Your...Key...Here"
+    ```
+
+The application is now configured to use your API key. The `.env` file is included in `.gitignore` and will not be committed to your repository.
 
 ## Requirements
 
